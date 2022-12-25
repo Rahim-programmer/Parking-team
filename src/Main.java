@@ -1,12 +1,23 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
+
+
+        Map<String, Car> cars = new HashMap<>();
+        String[] numsData = new String[200];
+        for (int i = 0; i < 200; i++) {
+            Car car = new Car();
+            cars.put(car.getGosnomer(), car);
+            numsData[i] = car.getGosnomer();
+            System.out.println(car.getGosnomer());
+        }
+
+
+    }
+    public static void drawCanvas(){
         List<Integer>list = IntStream.range(1,15).boxed().collect(Collectors.toList());
         Collections.shuffle(list);
 
@@ -21,4 +32,7 @@ public class Main {
         System.out.println(canvas.toString());
 
     }
+//    public static String generateKey(){
+//
+//    }
 }
