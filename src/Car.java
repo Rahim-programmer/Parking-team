@@ -4,17 +4,18 @@ import java.util.Map;
 import java.util.Random;
 
 public class Car {
-    private String carNumber = generateCarNumber();
-    private LocalDate date;
-    private LocalDate time;
-private State carState;
-    private String generateCarNumber(){
-        String number = String.format("0%dKG%d%d%dABS", generateNumber(), generateNumber(),generateNumber(),generateNumber());
+    private String carNumber ;
+
+    private State carState;
+
+    private String generateCarNumber() {
+        String number = String.format("0%dKG%d%d%dABS", generateNumber(), generateNumber(), generateNumber(), generateNumber());
         return number;
     }
-    private int generateNumber(){
+
+    private int generateNumber() {
         Random rnd = new Random();
-        return rnd.nextInt(9)+1;
+        return rnd.nextInt(9) + 1;
     }
 
     public State getCarState() {
@@ -28,7 +29,8 @@ private State carState;
     public String getCarNumber() {
         return carNumber;
     }
-    Car(){
+
+    public Car() {
         this.carNumber = generateCarNumber();
         carState = State.ON_WAY;
     }
@@ -37,10 +39,11 @@ private State carState;
     public String toString() {
         return carNumber;
     }
-    public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time){
+
+    public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time) {
         try {
             carState.changeState(parking, car, journal, time);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.print("");
         }
     }

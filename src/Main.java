@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        for(LocalDateTime i = ldt; i.isBefore(ldt.plusDays(30)); i = i.plusMinutes(5)){
+        for(LocalDateTime i = LocalDateTime.now(); i.isBefore(ldt.plusDays(30)); i = i.plusMinutes(5)){
             for(Car car:cars){
                 if(ran.nextInt(100) + 1 <= 3){
                     car.changeState(parking, car, journal, i);
@@ -30,10 +29,27 @@ public class Main {
             }
         }
         createPayment();
-        printCheck();
-
-
+        menu();
     }
+
+    public static void menu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Что вы хотите увидеть? \nЧек/ Журнал");
+        int value = sc.nextInt();
+        switch (value){
+            case 1:
+                System.out.println("Вы находитесь в меню: Журнал");
+                printJournal();
+                break;
+            case 2:
+                System.out.println("Вы находитесь в меню: Чек");
+                printCheck();
+                break;
+            default:
+                System.out.println("Ошибка");
+        }
+    }
+
     private static long minutesDifference(LocalDateTime ldt1, LocalDateTime ldt2) {
         return ChronoUnit.MINUTES.between(ldt1, ldt2);
     }
@@ -62,9 +78,6 @@ public class Main {
             System.out.printf("%s : %s%n", k, v);
         });
     }
-public static void menu(){
-
-}
 
     public static void drawCanvas(){
         List<Integer>list = IntStream.range(1,15).boxed().collect(Collectors.toList());
