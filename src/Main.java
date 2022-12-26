@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,7 +47,7 @@ public class Main {
         for(int i = 1; i < journal.size(); i++){
             if(journal.get(i).getCheckOutTime() != null){
                 if(returnMinutes(journal.get(i)) >= 30){
-                    check.put(check.size() + 1, new Payment(journal.get(i).getCar(), journal.get(i).getCheckInTime(), journal.get(i).getCheckOutTime(), returnMinutes(journal.get(i))));
+                    check.put(check.size() + 1, new Payment(journal.get(i).getCar(),journal.get(i).getCheckInTime() , journal.get(i).getCheckOutTime(), returnMinutes(journal.get(i))));
                 }
             }
         }
@@ -58,25 +59,19 @@ public class Main {
     }
 
 
+    public static void drawCanvas(){
+        List<Integer>list = IntStream.range(1,15).boxed().collect(Collectors.toList());
+        Collections.shuffle(list);
 
+        Canvas canvas = new Canvas(45, 18);
+        canvas.drawBorder("#");
 
-
-
-
-//    public static void drawCanvas(){
-//        List<Integer>list = IntStream.range(1,15).boxed().collect(Collectors.toList());
-//        Collections.shuffle(list);
-//
-//        Canvas canvas = new Canvas(45, 18);
-//        canvas.drawBorder("#");
-//
-//        for(int i = 0; i < list.size(); i++) {
-//            for (int j = canvas.getHeight() - 1 ; j >= list.get(i); j--) {
-//                canvas.setPixel((i + 1) * 3, j - 1, "*");
-//            }
-//        }
-//        System.out.println(canvas.toString());
-//
-//    }
+        for(int i = 0; i < list.size(); i++) {
+            for (int j = canvas.getHeight() - 1 ; j >= list.get(i); j--) {
+                canvas.setPixel((i + 1) * 3, j - 1, "*");
+            }
+        }
+        System.out.println(canvas.toString());
+    }
 
 }

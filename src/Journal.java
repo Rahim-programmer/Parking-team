@@ -5,6 +5,7 @@ public class Journal {
     private Car car;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
+
     public Car getCar() {
         return car;
     }
@@ -23,6 +24,7 @@ public class Journal {
 
     public LocalDateTime getCheckOutTime() {
         return checkOutTime;
+
     }
 
     public void setCheckOutTime(LocalDateTime checkOutTime) {

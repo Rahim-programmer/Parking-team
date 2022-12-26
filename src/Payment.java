@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Payment {
     private Car car;
@@ -6,12 +7,14 @@ public class Payment {
     private LocalDateTime checkOutTime;
     private int minutes;
     private final double pricePerMinute = 0.1;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private double total;
     public Payment(Car car, LocalDateTime checkInTime, LocalDateTime checkOutTime, int minutes) {
         this.car = car;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.minutes = minutes;
+        this.formatter = formatter;
         total = this.minutes * pricePerMinute;
     }
 
@@ -62,8 +65,8 @@ public class Payment {
     @Override
     public String toString() {
         return  "Машина с номером: " + car +
-                ", заехала в " + checkInTime +
-                ", выехала в " + checkOutTime +
+                ", заехала в " + formatter.format(checkInTime) +
+                ", выехала в " + formatter.format(checkOutTime) +
                 ", минуты на парковке: " + minutes +
                 ", стоимость за парковку: " + total;
     }

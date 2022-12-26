@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Parking {
 
-
-
     private int parkingCapacity;
     private List<Car> cars;
 

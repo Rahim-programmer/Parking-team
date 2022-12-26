@@ -10,8 +10,8 @@ public class Car {
     private LocalDate time;
 private State carState;
     private String generateGosnomer(){
-        String nomer = String.format("0%dKG%d%d%dABS", generateNumber(), generateNumber(),generateNumber(),generateNumber());
-        return nomer;
+        String number = String.format("0%dKG%d%d%dABS", generateNumber(), generateNumber(),generateNumber(),generateNumber());
+        return number;
     }
     private int generateNumber(){
         Random rnd = new Random();
