@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
+    Car car = new Car();
+    static Parking parking = new Parking();
+    private static final List<Boolean> parkingPlaces = parking.getPlacePark();
+    private static final Set<Car> cars = new HashSet<>();
     public static void main(String[] args) {
 
 
@@ -13,7 +18,11 @@ public class Main {
             cars.put(car.getGosnomer(), car);
             numsData[i] = car.getGosnomer();
             System.out.println(car.getGosnomer());
+
+
         }
+
+
 
 
     }
