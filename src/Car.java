@@ -1,15 +1,14 @@
-import java.text.Format;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
 
 public class Car {
-    private String gosnomer = generateGosnomer();
+    private String carNumber = generateCarNumber();
     private LocalDate date;
     private LocalDate time;
 private State carState;
-    private String generateGosnomer(){
+    private String generateCarNumber(){
         String number = String.format("0%dKG%d%d%dABS", generateNumber(), generateNumber(),generateNumber(),generateNumber());
         return number;
     }
@@ -26,17 +25,17 @@ private State carState;
         this.carState = carState;
     }
 
-    public String getGosnomer() {
-        return gosnomer;
+    public String getCarNumber() {
+        return carNumber;
     }
     Car(){
-        this.gosnomer= generateGosnomer();
+        this.carNumber = generateCarNumber();
         carState = State.ON_WAY;
     }
 
     @Override
     public String toString() {
-        return  gosnomer;
+        return carNumber;
     }
     public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time){
         try {

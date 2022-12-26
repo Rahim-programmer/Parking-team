@@ -52,12 +52,19 @@ public class Main {
             }
         }
     }
+    public static void printJournal() {
+        journal.forEach((k, v) -> {
+            System.out.printf("%s : %s%n", k, v);
+        });
+    }
     public static void printCheck(){
         check.forEach((k, v) -> {
             System.out.printf("%s : %s%n", k, v);
         });
     }
+public static void menu(){
 
+}
 
     public static void drawCanvas(){
         List<Integer>list = IntStream.range(1,15).boxed().collect(Collectors.toList());
