@@ -5,7 +5,6 @@ public class Journal {
     private Car car;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Car getCar() {
         return car;
@@ -39,7 +38,7 @@ public class Journal {
 
     @Override
     public String toString() {
-        return  car + " Заехал: " + formatter.format(checkInTime) +
-                ", Выехал: " + ((checkOutTime != null ? formatter.format(checkInTime) : checkOutTime));
+        return  car + " Заехал: " + checkInTime +
+                ", Выехал: " + ((checkOutTime));
     }
 }

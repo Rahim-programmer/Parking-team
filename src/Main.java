@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        for(LocalDateTime i = LocalDateTime.now(); i.isBefore(ldt.plusDays(30)); i = i.plusMinutes(5)){
+        for(LocalDateTime i = ldt; i.isBefore(ldt.plusDays(30)); i = i.plusMinutes(5)){
             for(Car car:cars){
                 if(ran.nextInt(100) + 1 <= 3){
                     car.changeState(parking, car, journal, i);
@@ -29,27 +30,10 @@ public class Main {
             }
         }
         createPayment();
-        menu();
-    }
+       menu();
 
-    public static void menu() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Что вы хотите увидеть? \nЧек/ Журнал");
-        int value = sc.nextInt();
-        switch (value){
-            case 1:
-                System.out.println("Вы находитесь в меню: Журнал");
-                printJournal();
-                break;
-            case 2:
-                System.out.println("Вы находитесь в меню: Чек");
-                printCheck();
-                break;
-            default:
-                System.out.println("Ошибка");
-        }
-    }
 
+    }
     private static long minutesDifference(LocalDateTime ldt1, LocalDateTime ldt2) {
         return ChronoUnit.MINUTES.between(ldt1, ldt2);
     }
@@ -66,6 +50,36 @@ public class Main {
                     check.put(check.size() + 1, new Payment(journal.get(i).getCar(),journal.get(i).getCheckInTime() , journal.get(i).getCheckOutTime(), returnMinutes(journal.get(i))));
                 }
             }
+        }
+    }
+    public static void menu(){
+
+        int number;
+        do{
+            System.out.println("1. Посмотреть журнал парковки\n" +
+                    "2. Посмотреть чеки.");
+            try {
+                System.out.print("Введите номер с действием: ");
+                number = Integer.parseInt(sc.nextLine());
+            }catch (Exception e){
+                System.out.println("Введите цифру");
+                continue;
+            }
+            if(number < 1 | number > 2){
+                continue;
+            }
+            events(number);
+            System.out.println("Хотите еще раз? (Y/N)");
+        }while (sc.nextLine().equalsIgnoreCase("Y"));
+    }
+
+    public static void events(int number){
+        switch (number){
+            case 1 : printJournal();
+                break;
+            case 2 :printCheck();
+                break;
+            default : System.out.println("Такого действия нету!");
         }
     }
     public static void printJournal() {
