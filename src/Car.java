@@ -1,5 +1,7 @@
 import java.text.Format;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Random;
 
 public class Car {
@@ -27,19 +29,20 @@ private State carState;
     public String getGosnomer() {
         return gosnomer;
     }
-    public void onRoad() {
-        try {
-            this.carState.onRoad(this);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    Car(){
+        this.gosnomer= generateGosnomer();
+        carState = State.ON_WAY;
     }
 
-    public void inParking() {
+    @Override
+    public String toString() {
+        return  gosnomer;
+    }
+    public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time){
         try {
-            this.carState.inParking(this);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            carState.changeState(parking, car, journal, time);
+        }catch (Exception e){
+            System.out.print("");
         }
     }
 }

@@ -1,47 +1,46 @@
+import java.time.LocalDateTime;
+import java.util.Map;
+
 public enum State {
-    ON_PARKING("на парковке") {
+    IN_PARKING("На парковке"){
         @Override
-        public void onRoad(Car car) throws Exception {
-            Parking parking = new Parking();
+        public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time) throws Exception {
             car.setCarState(State.ON_WAY);
-            System.out.println("Машина выехала со стоянки");
-            parking.getPlacePark().add(false);
+            parking.upParkingCapacity();
+            parking.removeCar(car);
+            for(int i = journal.size(); i > 0; i--){
+                if(journal.get(i).getCar().equals(car)){
+                    journal.get(i).setCheckOutTime(time);
+                    break;
+                }
+            }
+
         }
-
-        @Override
-        public void inParking(Car car) throws Exception {
-            throw new Exception("Машина  на стоянке.");
-        }
-
-
     },
-
-    ON_WAY("в пути") {
+    ON_WAY("В пути"){
         @Override
-        public void onRoad(Car car) throws Exception {
-            throw new Exception("Машина в пути");
-        }
-
-        @Override
-        public void inParking(Car car) throws Exception {
-            Parking parking = new Parking();
-            car.setCarState(State.ON_PARKING);
-            System.out.println("Машина прибыла на стоянку");
-            parking.getPlacePark().add(true);
+        public void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime time) throws Exception {
+            if(parking.getParkingCapacity() > 0){
+                car.setCarState(State.IN_PARKING);
+                parking.dawnParkingCapacity();
+                parking.addCar(car);
+                journal.put(journal.size() + 1, new Journal(car, time));
+            }else {
+                throw new Exception("Парковка заполнена!");
+            }
         }
     };
 
-    private String value;
 
-    public String getValue() {
-        return value;
-    }
+    private String value;
 
     State(String value) {
         this.value = value;
     }
 
-    public abstract void onRoad(Car car) throws Exception;
+    public String getValue() {
+        return value;
+    }
 
-    public abstract void inParking(Car car) throws Exception;
+    public abstract void changeState(Parking parking, Car car, Map<Integer, Journal> journal, LocalDateTime i) throws Exception;
 }
